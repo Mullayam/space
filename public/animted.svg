@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect x="0" y="0" width="100" height="100" fill="#ffffff" />
+  <line id="leftLine" x1="20" y1="20" x2="80" y2="80" stroke="#000000" strokeWidth="4" />
+  <line id="rightLine" x1="80" y1="20" x2="20" y2="80" stroke="#000000" strokeWidth="4" />
+  <animate 
+    xlink:href="#leftLine"
+    attributeName="x1"
+    from="20"
+    to="50"
+    begin="swipe.start"
+    dur="0.5s"
+    fill="freeze"
+  />
+  <animate 
+    xlink:href="#leftLine"
+    attributeName="y1"
+    from="20"
+    to="50"
+    begin="swipe.start"
+    dur="0.5s"
+    fill="freeze"
+  />
+  <animate 
+    xlink:href="#leftLine"
+    attributeName="x2"
+    from="80"
+    to="50"
+    begin="swipe.start"
+    dur="0.5s"
+    fill="freeze"
+  />
+  <animate 
+    xlink:href="#leftLine"
+    attributeName="y2"
+    from="80"
+    to="50"
+    begin="swipe.start"
+    dur="0.5s"
+    fill="freeze"
+  />
+  <animate 
+    xlink:href="#rightLine"
+    attributeName="x1"
+    from="80"
+    to="50"
+    begin="swipe.start"
+    dur="0.5s"
+    fill="freeze"
+  />
+  <animate 
+    xlink:href="#rightLine"
+    attributeName="y1"
+    from="20"
+    to="50"
+    begin="swipe.start"
+    dur="0.5s"
+    fill="freeze"
+  />
+  <animate 
+    xlink:href="#rightLine"
+    attributeName="x2"
+    from="20"
+    to="50"
+    begin="swipe.start"
+    dur="0.5s"
+    fill="freeze"
+  />
+  <animate 
+    xlink:href="#rightLine"
+    attributeName="y2"
+    from="80"
+    to="50"
+    begin="swipe.start"
+    dur="0.5s"
+    fill="freeze"
+  />
+  <animateMotion id="swipe" path="M 20 50 L 80 50" dur="0.5s" repeatCount="1" />
+</svg>
+
