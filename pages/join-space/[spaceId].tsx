@@ -2,10 +2,11 @@
 import React from "react";
 import Join from "@/components/AskForJoin/Join";
 import SpaceRoom from "@/components/SpaceRoom";
-import { useApp } from "@/context/AppContext";
+import { useAppSelector } from "@/redux/hooks";
+import { RootState } from "@/redux/store";
 
 const JoinSpace = () => {
-  const { isSpaceJoined } = useApp();
+  const { isSpaceJoined } = useAppSelector((state: RootState) => state.Space);
   return isSpaceJoined ? <SpaceRoom /> : <Join />;
 };
 

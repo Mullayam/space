@@ -13,7 +13,7 @@ import { GetSpaceDetails } from "@/lib/GetSpaceRoomDetails";
 import { useSocketContext } from "@/context/SocketContext";
 
 export default function Join() {
-  const { clientId } = useSocketContext();
+  const { id } = useSocketContext();
   const [video, setVideo] = React.useState(true);
   const [mic, setMic] = React.useState(true);
   const [name, setName] = React.useState("");
@@ -29,7 +29,7 @@ export default function Join() {
       name,
       // data.Spaces[0].spaceDurations,
       "10:min",
-      clientId as string
+      id as string
     );
   };
 
@@ -59,7 +59,7 @@ export default function Join() {
               type="button"
               className="group rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 dark:focus-visible:ring-sky-400"
             >
-              {new Date().toString()}
+              {/* {new Date().toString()} */}
             </button>
           </div>
           <div className="mx-6 hidden h-6 w-px bg-gray-200 dark:bg-gray-700 sm:block lg:mx-4"></div>

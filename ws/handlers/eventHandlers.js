@@ -18,7 +18,7 @@ export default async function CreateSpace(socket, io) {
     if (GetPeopleArrayFromSpaceKey(Spaces, spaceId, socketId)) {
       const [value, unit] = SplitString(duration, ":");
       const destroyIn = ConverTimeStringIntoSeconds(value, unit);
-      People.push({ name, socketId });
+      People.push({ name, key: socketId, peerId: 1 });
       Spaces[spaceId] = {
         people: People,
         createdBy: clientId,
@@ -53,3 +53,27 @@ function EmitOnlineUsers(io, Spaces, spaceId) {
     onlineUsers: Spaces[spaceId]?.people,
   });
 }
+const broadcastVideoRooms = (io) => {
+  io.to("logged-users").emit("video-rooms", videoRooms);
+};
+const broadcastDisconnectedUserDetails = (io, disconnectedUserSocketId) => {
+  io.to("logged-users").emit("user-disconnected", disconnectedUserSocketId);
+};
+const removeUserFromTheVideoRoom = (socketId, roomId) => {
+  videoRooms[roomId].participants = videoRooms[roomId].participants.filter(
+    (p) => p.socketId !== socketId
+  );
+
+  // remove room if no participants left in the room
+  if (videoRooms[roomId].participants.length < 1) {
+    delete videoRooms[roomId];
+  } else {
+    // if still there is a user in the room - inform him to clear his peer connection
+
+    io.to(videoRooms[roomId].participants[0].socketId).emit(
+      "video-call-disconnect"
+    );
+  }
+
+  broadcastVideoRooms();
+};

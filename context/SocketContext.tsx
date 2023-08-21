@@ -2,33 +2,34 @@ import { connectWithSocketIOServer } from "@/lib/SpaceFunction";
 import React, { createContext } from "react";
 import { io, Socket } from "socket.io-client";
 const URL = process.env.NEXT_PUBLIC_WS_URL;
-import { intialState, reducer } from "@/hooks/SpaceReducer";
+ 
+import { store, useAppDispatch } from "@/redux/store";
+import { setClientId, setSpaceJoined } from "@/redux/slices/SpaceSlice";
 
 const socket: Socket = io(`${URL}`, {
   transports: ["websocket", "polling"],
 });
 type SocketContextType = {
   socket?: Socket;
-  clientId?: null | string;
+  id?: string;
 };
 const SocketContext = createContext<SocketContextType>({
   socket,
-  clientId: undefined,
+  id: "",
 });
 
 const ContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [clientId, setclientId] = React.useState<string | null>(null);
-  const [state, dispatch] = React.useReducer(reducer, intialState);
-  console.log(state);
-
+  const [id, setId] = React.useState<string>("");
+  const dispatch = useAppDispatch();
   React.useEffect(() => {
     connectWithSocketIOServer();
-    const id = window.localStorage.getItem("clientId") || null;
-    setclientId(id);
+    const id = (window.localStorage.getItem("clientId") as string) || "";
+    dispatch(setClientId(id));
+    setId(id);
   }, []);
 
   return (
-    <SocketContext.Provider value={{ socket, clientId }}>
+    <SocketContext.Provider value={{ socket, id }}>
       {children}
     </SocketContext.Provider>
   );
